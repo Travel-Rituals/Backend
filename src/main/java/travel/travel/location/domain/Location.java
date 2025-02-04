@@ -1,5 +1,6 @@
 package travel.travel.location.domain;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +10,6 @@ import travel.travel.image.dto.ImageResDto;
 import travel.travel.location.dto.LocationResDto;
 import travel.travel.plan.domain.Plan;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 

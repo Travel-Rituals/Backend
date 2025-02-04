@@ -1,9 +1,13 @@
 package travel.travel.plan.service;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import travel.travel.member.domain.Member;
 import travel.travel.member.repository.MemberRepository;
 import travel.travel.plan.domain.Destination;
@@ -14,9 +18,7 @@ import travel.travel.plan.dto.PlanUpdateReqDto;
 import travel.travel.plan.repository.DestinationRepository;
 import travel.travel.plan.repository.PlanRepository;
 
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
+@Validated
 public class PlanService{
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;

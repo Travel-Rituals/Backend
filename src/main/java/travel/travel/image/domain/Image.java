@@ -1,10 +1,11 @@
 package travel.travel.image.domain;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import travel.travel.image.dto.ImageResDto;
 
-import javax.persistence.*;
+
 
 @Entity
 @AllArgsConstructor

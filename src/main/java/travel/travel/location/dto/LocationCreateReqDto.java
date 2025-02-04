@@ -1,5 +1,7 @@
 package travel.travel.location.dto;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +11,6 @@ import travel.travel.location.domain.Category;
 import travel.travel.location.domain.Location;
 import travel.travel.plan.domain.Plan;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @Data
@@ -27,7 +27,6 @@ public class LocationCreateReqDto {
     private String address;
 
     private LocalDate day;
-   /* private Integer scheduleOrder;*/
 
     @Enumerated(EnumType.STRING)
     private Category category;
