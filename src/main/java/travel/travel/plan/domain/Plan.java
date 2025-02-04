@@ -1,14 +1,11 @@
 package travel.travel.plan.domain;
 
 import lombok.*;
-import travel.travel.common.domain.BaseEntity;
-import travel.travel.location.domain.Location;
 import travel.travel.member.domain.Member;
 import travel.travel.plan.dto.PlanResDto;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +13,7 @@ import java.util.List;
 @Builder
 @Getter
 @Table(name= "plan")
-public class Plan extends BaseEntity {
+public class Plan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

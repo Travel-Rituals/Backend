@@ -30,8 +30,8 @@ public class LikeService {
         Plan existingPlan = planRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 계획입니다."));
 
-        String memberEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberRepository.findByEmailAndDelYn(memberEmail, "N").orElseThrow(() -> new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        // member
+        Member member = null;
 
         String likeUserKey = LIKE_USERS_KEY + postId;
         String likeCountKey = LIKE_COUNT_KEY + postId;

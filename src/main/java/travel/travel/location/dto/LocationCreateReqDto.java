@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 import travel.travel.image.domain.Image;
 import travel.travel.location.domain.Category;
 import travel.travel.location.domain.Location;

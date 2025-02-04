@@ -3,7 +3,6 @@ package travel.travel.image.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import travel.travel.image.dto.ImageResDto;
-import travel.travel.location.dto.LocationResDto;
 
 import javax.persistence.*;
 

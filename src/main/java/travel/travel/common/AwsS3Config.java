@@ -1,4 +1,4 @@
-package travel.travel.common.config;
+package travel.travel.common;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

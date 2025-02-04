@@ -30,8 +30,8 @@ public class PlanService{
     private final DestinationRepository destinationRepository;
 
     public PlanResDto planCreate(@Valid PlanCreateReqDto planCreateReqDto) {
-        String memberEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberRepository.findByEmailAndDelYn(memberEmail, "N").orElseThrow(()->new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        // member
+        Member member = null;
 
         Destination destination = destinationRepository.findByDestinationName(planCreateReqDto.getDestinationName())
                 .orElseThrow(()->new EntityNotFoundException("존재하지 않는 장소입니다."));
@@ -46,8 +46,8 @@ public class PlanService{
 
 
     public PlanResDto planRead(Long postId) {
-        String memberEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberRepository.findByEmailAndDelYn(memberEmail, "N").orElseThrow(() -> new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        // member
+        Member member = null;
 
         Plan existingPlan = planRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 계획입니다."));
@@ -56,8 +56,8 @@ public class PlanService{
     }
 
     public List<PlanResDto> planReadList() {
-        String memberEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberRepository.findByEmailAndDelYn(memberEmail, "N").orElseThrow(() -> new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        // member
+        Member member = null;
 
         List<PlanResDto> plans = planRepository.findAll().stream()
                 .map(Plan::fromEntity)
@@ -66,8 +66,8 @@ public class PlanService{
     }
 
     public PlanResDto planUpdate(Long postId, @Valid PlanUpdateReqDto planUpdateReqDto) {
-        String memberEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberRepository.findByEmailAndDelYn(memberEmail, "N").orElseThrow(()->new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        // member
+        Member member = null;
 
         Plan existingPlan = planRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 계획입니다."));
@@ -79,8 +79,8 @@ public class PlanService{
     }
 
     public PlanResDto planDelete(Long postId) {
-        String memberEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        Member member = memberRepository.findByEmailAndDelYn(memberEmail, "N").orElseThrow(() -> new EntityNotFoundException("존재하지 않는 이메일입니다."));
+        // member
+        Member member = null;
 
         Plan existingPlan = planRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 계획입니다."));
