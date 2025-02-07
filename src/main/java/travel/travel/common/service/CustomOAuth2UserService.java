@@ -19,7 +19,6 @@ import java.util.Map;
 public class CustomOAuth2UserService  implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final MemberRepository memberRepository;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -31,8 +30,6 @@ public class CustomOAuth2UserService  implements OAuth2UserService<OAuth2UserReq
         log.info("kakao {}" , kakaoId);
         Member member = save(kakaoId);
 
-        // JWT 토큰 발급
-        String token = jwtTokenProvider.createToken(String.valueOf(member.getId()));
         return oauth2User;
     }
 

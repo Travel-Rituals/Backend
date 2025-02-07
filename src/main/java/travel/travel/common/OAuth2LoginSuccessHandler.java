@@ -28,15 +28,19 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         log.info("OAuth2 로그인 성공!");
 
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        OAuth2User oAuth2User =  (OAuth2User)authentication.getPrincipal();
         String id = String.valueOf(oAuth2User.getAttributes().get("id"));
-        String token = jwtTokenProvider.createToken(id);
+        log.info("id = {}", id);
+        String accessToken = jwtTokenProvider.createAccessToken(id);
+        String refreshToken = jwtTokenProvider.createRefreshToken();
+
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         Map<String, String> responseData = new HashMap<>();
-        responseData.put("token", token);
+        responseData.put("accessToken", accessToken);
+        responseData.put("refreshToken", refreshToken);
 
         response.getWriter().write(objectMapper.writeValueAsString(responseData));
     }
