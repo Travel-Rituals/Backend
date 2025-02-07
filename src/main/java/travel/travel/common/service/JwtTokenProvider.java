@@ -55,7 +55,7 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = parseClaims(token);
         String username = claims.getSubject();
-        UserDetails principal = new User(username, "", Collections.emptyList());
+        UserDetails principal = new User(username,"" , Collections.emptyList());
 
         return new UsernamePasswordAuthenticationToken(principal, "", Collections.emptyList());
     }
@@ -78,5 +78,17 @@ public class JwtTokenProvider {
                 .httpOnly(true)
                 .sameSite("Lax")
                 .build();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException e) {
+            return false;
+        }
     }
 }
