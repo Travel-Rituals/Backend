@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import travel.travel.common.domain.RefreshToken;
+import travel.travel.common.repository.RefreshTokenRepository;
 import travel.travel.common.service.JwtTokenProvider;
 
 
@@ -22,6 +24,7 @@ import java.util.Map;
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
@@ -33,7 +36,8 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         log.info("id = {}", id);
         String accessToken = jwtTokenProvider.createAccessToken(id);
         String refreshToken = jwtTokenProvider.createRefreshToken();
-
+        RefreshToken savedToken = refreshTokenRepository.save(new RefreshToken(refreshToken));
+        log.info("refreshToken = {}", savedToken);
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
