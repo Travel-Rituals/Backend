@@ -1,5 +1,6 @@
 package travel.travel.common.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -14,13 +15,11 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomOAuth2UserService  implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final MemberRepository memberRepository;
-
-    public CustomOAuth2UserService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -32,6 +31,8 @@ public class CustomOAuth2UserService  implements OAuth2UserService<OAuth2UserReq
         log.info("kakao {}" , kakaoId);
         Member member = save(kakaoId);
 
+        // JWT 토큰 발급
+        String token = jwtTokenProvider.createToken(String.valueOf(member.getId()));
         return oauth2User;
     }
 
