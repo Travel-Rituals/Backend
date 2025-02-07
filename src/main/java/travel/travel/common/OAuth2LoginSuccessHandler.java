@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -35,12 +37,16 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String id = String.valueOf(oAuth2User.getAttributes().get("id"));
         log.info("id = {}", id);
         String accessToken = jwtTokenProvider.createAccessToken(id);
+        ResponseCookie accessTokenCookie = jwtTokenProvider.createAccessTokenCookie(accessToken);
+
         String refreshToken = jwtTokenProvider.createRefreshToken();
         RefreshToken savedToken = refreshTokenRepository.save(new RefreshToken(refreshToken));
         log.info("refreshToken = {}", savedToken);
 
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader(HttpHeaders.SET_COOKIE, accessTokenCookie.toString());
 
         Map<String, String> responseData = new HashMap<>();
         responseData.put("accessToken", accessToken);

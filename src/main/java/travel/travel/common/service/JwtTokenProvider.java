@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -71,4 +72,11 @@ public class JwtTokenProvider {
         }
     }
 
+    public ResponseCookie createAccessTokenCookie(String accessToken) {
+        return ResponseCookie.from(accessToken)
+                .path("/")
+                .httpOnly(true)
+                .sameSite("Lax")
+                .build();
+    }
 }

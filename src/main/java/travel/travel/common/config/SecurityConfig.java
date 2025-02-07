@@ -23,6 +23,11 @@ public class SecurityConfig {
     private final OAuth2LoginSuccessHandler successHandler;
     private final CustomOAuth2UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final String[] whiteList = {
+            "/login/**",
+            "/plan/**",
+            "/location/**"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,7 +36,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login/**").permitAll()
+                        .requestMatchers(whiteList).permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
